@@ -46,7 +46,18 @@ namespace Santi.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoverVisitante(string cpf)
+        {
+            var visitante = await _context.VisitanteDb.FirstOrDefaultAsync(u => u.CPF == cpf);
 
+            if (visitante == null)
+            {
+                throw new ArgumentException("Visitante com esse cpf não encontrado");
+            }
+
+            _context.VisitanteDb.Remove(visitante);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<Visitante> NovoVisitante(Visitante visitante)
         {

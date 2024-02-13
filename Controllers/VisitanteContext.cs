@@ -86,5 +86,23 @@ namespace Santi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{cpf}")]
+        public async Task<IActionResult> RemoverVisitante(string cpf)
+        {
+            try
+            {
+                await _services.RemoverVisitante(cpf);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
