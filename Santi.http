@@ -1,0 +1,6 @@
+@Santi_HostAddress = http://localhost:5036
+
+GET {{Santi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
