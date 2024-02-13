@@ -23,6 +23,11 @@ namespace Santi.Services
             return todosVisitantes;
         }
 
+        public async Task<Visitante> BuscarPorCpf(string cpf)
+        {
+            return await _context.VisitanteDb.FirstOrDefaultAsync(u => u.CPF == cpf);
+        }
+
         public async Task<Visitante> NovoVisitante(Visitante visitante)
         {
             bool VisitanteExistente = await _context.VisitanteDb.AnyAsync(u => u.CPF == visitante.CPF);

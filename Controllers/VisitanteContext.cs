@@ -32,7 +32,26 @@ namespace Santi.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                throw new Exception($"Erro ao buscar {ex.Message}");
+            }
+        }
+
+        [HttpGet("VisitantePorCPF")]
+        public async Task<IActionResult> BuscaPorCPF(string cpf)
+        {
+            try
+            {
+                var visitante = await _services.BuscarPorCpf(cpf);
+                if (visitante == null)
+                {
+                    return NotFound("Visitante não encontrado");
+                }
+                return Ok(visitante);
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao buscar {ex.Message}");
             }
         }
 
