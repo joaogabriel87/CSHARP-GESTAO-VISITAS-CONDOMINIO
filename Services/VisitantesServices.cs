@@ -28,6 +28,26 @@ namespace Santi.Services
             return await _context.VisitanteDb.FirstOrDefaultAsync(u => u.CPF == cpf);
         }
 
+        public async Task AtualizarVisitante(string cpf, Visitante visitante)
+        {
+            var VisitanteExistente = await BuscarPorCpf(cpf);
+
+            if (visitante == null)
+            {
+                throw new ArgumentException("Visitante com esse cpf não encontrado");
+            }
+
+            VisitanteExistente.DataVisita = visitante.DataVisita;
+            VisitanteExistente.VisitanteAtivo = visitante.VisitanteAtivo;
+            VisitanteExistente.Nome = visitante.Nome;
+            VisitanteExistente.Telefone = visitante.Telefone;
+
+            _context.Entry(VisitanteExistente).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+
+
         public async Task<Visitante> NovoVisitante(Visitante visitante)
         {
             bool VisitanteExistente = await _context.VisitanteDb.AnyAsync(u => u.CPF == visitante.CPF);

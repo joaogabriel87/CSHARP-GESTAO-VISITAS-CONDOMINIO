@@ -68,5 +68,23 @@ namespace Santi.Controllers
                 throw new Exception($"Erro ao cadastrar {ex.Message}");
             }
         }
+
+        [HttpPut("{cpf}")]
+        public async Task<IActionResult> AtualizarVisitante(string cpf, [FromBody] Visitante visitante)
+        {
+            try
+            {
+                await _services.AtualizarVisitante(cpf, visitante);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
