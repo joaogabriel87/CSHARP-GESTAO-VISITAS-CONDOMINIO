@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Santi.Models;
@@ -18,6 +19,21 @@ namespace Santi.Controllers
         public VisitanteContext(VisitantesServices services)
         {
             _services = services;
+        }
+
+        [HttpGet("Visitantes")]
+        public async Task<ActionResult<List<Visitante>>> TdosVisitante()
+        {
+            try
+            {
+                var todosVisitantes = await _services.TdosVisitante();
+                return Ok(todosVisitantes);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("Cadastrar")]

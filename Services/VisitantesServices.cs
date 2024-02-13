@@ -17,6 +17,12 @@ namespace Santi.Services
             _context = context;
         }
 
+        public async Task<List<Visitante>> TdosVisitante()
+        {
+            var todosVisitantes = await _context.VisitanteDb.ToListAsync();
+            return todosVisitantes;
+        }
+
         public async Task<Visitante> NovoVisitante(Visitante visitante)
         {
             bool VisitanteExistente = await _context.VisitanteDb.AnyAsync(u => u.CPF == visitante.CPF);
