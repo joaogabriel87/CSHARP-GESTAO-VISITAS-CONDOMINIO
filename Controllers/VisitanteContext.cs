@@ -69,7 +69,7 @@ namespace Santi.Controllers
             }
         }
 
-        [HttpPut("{cpf}")]
+        [HttpPut("Atualizar/{cpf}")]
         public async Task<IActionResult> AtualizarVisitante(string cpf, [FromBody] Visitante visitante)
         {
             try
@@ -87,7 +87,7 @@ namespace Santi.Controllers
             }
         }
 
-        [HttpDelete("{cpf}")]
+        [HttpDelete("remover/{cpf}")]
         public async Task<IActionResult> RemoverVisitante(string cpf)
         {
             try
@@ -104,5 +104,7 @@ namespace Santi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
     }
 }
